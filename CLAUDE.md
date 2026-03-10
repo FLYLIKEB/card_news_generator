@@ -130,6 +130,33 @@ GEMINI_API_KEY=        # fallback용
 
 ---
 
+## Git 커밋 규칙
+
+- 커밋 메시지 형식: `feat: 이슈#N — 작업 내용 요약`
+- 이슈를 닫을 때: 커밋 메시지 본문에 `closes #N` 포함
+- 이슈 단위로 커밋한다. 여러 이슈를 한 커밋에 섞지 않는다.
+- 커밋 후 바로 `git push`까지 실행한다.
+
+---
+
+## Next.js 프로젝트 초기화 주의사항
+
+- `create-next-app`은 디렉토리에 기존 파일이 있으면 실패한다.
+- 기존 `.md` 파일 등이 있으면 임시 이동 후 설치 → 복원하는 순서로 처리한다.
+- 설치 옵션: `--typescript --tailwind --eslint --app --src-dir --import-alias "@/*" --no-turbopack --no-react-compiler`
+- `.env*`를 gitignore하되 `.env.example`은 `!.env.example`로 예외 처리한다.
+- 빈 폴더는 git에서 추적되지 않으므로 `.gitkeep` 파일을 추가한다.
+
+---
+
+## 환경변수 관리
+
+- 실제 키는 `.env.local`에만 작성 (gitignore 대상)
+- `.env.example`에 키 이름과 발급처 주석만 기록해 커밋한다
+- API 키는 코드에 하드코딩 절대 금지, 항상 `process.env.XXX`로 참조
+
+---
+
 ## 참고 링크
 
 - [PLAN.md](./PLAN.md) — 전체 기획서
