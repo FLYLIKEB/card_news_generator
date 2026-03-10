@@ -1,6 +1,6 @@
 "use client";
 
-import { CardNews, AspectRatio } from "@/types/card";
+import { CardNews, AspectRatio, CardPage } from "@/types/card";
 import CardThumbnail from "./CardThumbnail";
 import CardPreview from "./CardPreview";
 
@@ -11,6 +11,7 @@ interface PreviewPanelProps {
   aspectRatio: AspectRatio;
   onRegenerate: (page: number) => void;
   isRegenerating: boolean;
+  onUpdateCard: (page: number, updated: CardPage, overlayOpacity: number) => void;
 }
 
 export default function PreviewPanel({
@@ -20,15 +21,12 @@ export default function PreviewPanel({
   aspectRatio,
   onRegenerate,
   isRegenerating,
+  onUpdateCard,
 }: PreviewPanelProps) {
   if (!cardNews) {
     return (
       <div className="flex-1 flex items-center justify-center bg-gray-50">
-        <div className="text-center">
-          <p className="text-gray-400 text-sm">
-            글을 입력하고 생성하기를 눌러보세요
-          </p>
-        </div>
+        <p className="text-gray-400 text-sm">글을 입력하고 생성하기를 눌러보세요</p>
       </div>
     );
   }
@@ -58,6 +56,9 @@ export default function PreviewPanel({
             aspectRatio={aspectRatio}
             onRegenerate={() => onRegenerate(selectedCard.page)}
             isRegenerating={isRegenerating}
+            onUpdateCard={(updated, opacity) =>
+              onUpdateCard(selectedCard.page, updated, opacity)
+            }
           />
         )}
       </div>

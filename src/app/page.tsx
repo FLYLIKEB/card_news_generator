@@ -118,6 +118,14 @@ export default function Home() {
     }
   };
 
+  const handleUpdateCard = (page: number, updated: CardPage, _overlayOpacity: number) => {
+    if (!cardNews) return;
+    setCardNews({
+      ...cardNews,
+      pages: cardNews.pages.map((p) => (p.page === page ? updated : p)),
+    });
+  };
+
   const handleExport = () => {
     if (penFile) {
       // .pen 파일 다운로드 (JSON)
@@ -153,6 +161,7 @@ export default function Home() {
           aspectRatio={settings.aspectRatio}
           onRegenerate={handleRegenerate}
           isRegenerating={isRegenerating}
+          onUpdateCard={handleUpdateCard}
         />
       </div>
     </div>
