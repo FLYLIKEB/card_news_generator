@@ -4,7 +4,7 @@ import { useState, useRef } from "react";
 import Header from "@/components/Header";
 import InputPanel from "@/components/InputPanel";
 import PreviewPanel from "@/components/PreviewPanel";
-import { CardNews, CardPage, EditorSettings } from "@/types/card";
+import { CardNews, CardPage, EditorSettings, PenFile } from "@/types/card";
 
 const DEFAULT_SETTINGS: EditorSettings = {
   aspectRatio: "1:1",
@@ -34,6 +34,7 @@ export default function Home() {
   const [selectedPage, setSelectedPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [isRegenerating, setIsRegenerating] = useState(false);
+  const [penFile, setPenFile] = useState<PenFile | null>(null);
   // 페이지별 재탐색 페이지 번호 추적 (같은 키워드, 다른 결과)
   const imagePageRef = useRef<Record<number, number>>({});
 
@@ -63,7 +64,21 @@ export default function Home() {
         })
       );
 
-      setCardNews({ ...data, pages: pagesWithImages });
+      const draft: CardNews = { ...data, pages: pagesWithImages };
+
+      // 카피라이터 + 퍼블리셔 실행 (.pen 파일 생성)
+      const publishRes = await fetch("/api/publish", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ cardNews: draft, aspectRatio: settings.aspectRatio }),
+      });
+      if (publishRes.ok) {
+        const { penFile: pen, cardNews: refined } = await publishRes.json();
+        setCardNews(refined);
+        setPenFile(pen);
+      } else {
+        setCardNews(draft);
+      }
       setSelectedPage(1);
     } catch (e) {
       console.error(e);
@@ -104,8 +119,19 @@ export default function Home() {
   };
 
   const handleExport = () => {
-    // TODO: 이슈#7 — PNG 내보내기
-    alert("내보내기 기능은 이슈#7에서 구현 예정입니다.");
+    if (penFile) {
+      // .pen 파일 다운로드 (JSON)
+      const blob = new Blob([JSON.stringify(penFile, null, 2)], {
+        type: "application/json",
+      });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${penFile.title ?? "card-news"}.pen`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+    // TODO: 이슈#7 — PNG 내보내기 추가
   };
 
   return (
