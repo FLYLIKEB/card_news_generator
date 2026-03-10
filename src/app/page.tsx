@@ -23,21 +23,26 @@ export default function Home() {
   const handleGenerate = async () => {
     if (!text.trim()) return;
     setIsLoading(true);
-    // TODO: 이슈#3 — Claude API 연동
-    // 임시 더미 데이터
-    await new Promise((r) => setTimeout(r, 1000));
-    setCardNews({
-      title: "샘플 카드뉴스",
-      pages: Array.from({ length: settings.pageCount }, (_, i) => ({
-        page: i + 1,
-        headline: `페이지 ${i + 1} 헤드라인`,
-        subtext: i === 0 ? "서브텍스트 예시입니다" : undefined,
-        imageKeyword: "minimal abstract",
-        imageUrl: `https://picsum.photos/seed/${i + 1}/1080/1080`,
-      })),
-    });
-    setSelectedPage(1);
-    setIsLoading(false);
+    try {
+      const res = await fetch("/api/analyze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          text,
+          pageCount: settings.pageCount,
+          style: settings.style,
+        }),
+      });
+      if (!res.ok) throw new Error("분석 실패");
+      const data: CardNews = await res.json();
+      setCardNews(data);
+      setSelectedPage(1);
+    } catch (e) {
+      console.error(e);
+      alert("카드뉴스 생성에 실패했습니다. 다시 시도해주세요.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleRegenerate = async (page: number) => {
