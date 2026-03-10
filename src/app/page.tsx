@@ -1,16 +1,31 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Header from "@/components/Header";
 import InputPanel from "@/components/InputPanel";
 import PreviewPanel from "@/components/PreviewPanel";
-import { CardNews, EditorSettings } from "@/types/card";
+import { CardNews, CardPage, EditorSettings } from "@/types/card";
 
 const DEFAULT_SETTINGS: EditorSettings = {
   aspectRatio: "1:1",
   style: "minimal",
   pageCount: 6,
 };
+
+async function fetchImage(
+  keyword: string,
+  aspectRatio: string,
+  page = 1
+): Promise<string | undefined> {
+  const res = await fetch("/api/image", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ keyword, aspectRatio, page }),
+  });
+  if (!res.ok) return undefined;
+  const data = await res.json();
+  return data.url;
+}
 
 export default function Home() {
   const [text, setText] = useState("");
@@ -19,6 +34,8 @@ export default function Home() {
   const [selectedPage, setSelectedPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [isRegenerating, setIsRegenerating] = useState(false);
+  // 페이지별 재탐색 페이지 번호 추적 (같은 키워드, 다른 결과)
+  const imagePageRef = useRef<Record<number, number>>({});
 
   const handleGenerate = async () => {
     if (!text.trim()) return;
@@ -35,7 +52,18 @@ export default function Home() {
       });
       if (!res.ok) throw new Error("분석 실패");
       const data: CardNews = await res.json();
-      setCardNews(data);
+
+      // 모든 페이지 이미지 병렬 fetch
+      imagePageRef.current = {};
+      const pagesWithImages: CardPage[] = await Promise.all(
+        data.pages.map(async (p) => {
+          imagePageRef.current[p.page] = 1;
+          const imageUrl = await fetchImage(p.imageKeyword, settings.aspectRatio, 1);
+          return { ...p, imageUrl };
+        })
+      );
+
+      setCardNews({ ...data, pages: pagesWithImages });
       setSelectedPage(1);
     } catch (e) {
       console.error(e);
@@ -48,20 +76,31 @@ export default function Home() {
   const handleRegenerate = async (page: number) => {
     if (!cardNews) return;
     setIsRegenerating(true);
-    // TODO: 이슈#4 — Unsplash API 연동
-    await new Promise((r) => setTimeout(r, 800));
-    setCardNews({
-      ...cardNews,
-      pages: cardNews.pages.map((p) =>
-        p.page === page
-          ? {
-              ...p,
-              imageUrl: `https://picsum.photos/seed/${page}-${Date.now()}/1080/1080`,
-            }
-          : p
-      ),
-    });
-    setIsRegenerating(false);
+    try {
+      const targetPage = cardNews.pages.find((p) => p.page === page);
+      if (!targetPage) return;
+
+      // 다음 페이지 번호로 재탐색 (같은 키워드, 다른 이미지)
+      const nextImagePage = (imagePageRef.current[page] ?? 1) + 1;
+      imagePageRef.current[page] = nextImagePage;
+
+      const imageUrl = await fetchImage(
+        targetPage.imageKeyword,
+        settings.aspectRatio,
+        nextImagePage
+      );
+
+      setCardNews({
+        ...cardNews,
+        pages: cardNews.pages.map((p) =>
+          p.page === page ? { ...p, imageUrl } : p
+        ),
+      });
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setIsRegenerating(false);
+    }
   };
 
   const handleExport = () => {
