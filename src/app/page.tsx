@@ -5,13 +5,32 @@ import Header from "@/components/Header";
 import InputPanel from "@/components/InputPanel";
 import PreviewPanel from "@/components/PreviewPanel";
 import ExportModal from "@/components/ExportModal";
-import { CardNews, CardPage, EditorSettings, PenFile } from "@/types/card";
+import { AspectRatio, CardNews, CardPage, EditorSettings, PenFile } from "@/types/card";
 
 const DEFAULT_SETTINGS: EditorSettings = {
   aspectRatio: "1:1",
   style: "minimal",
   pageCount: 6,
 };
+
+// .pen JSON → CardNews 변환 (preview/page.tsx와 동일한 포맷 지원)
+function penToCardNews(pen: Record<string, unknown>): { cardNews: CardNews; aspectRatio: AspectRatio } {
+  const aspectRatio = (pen.aspectRatio as AspectRatio) ?? "1:1";
+  const pages = (pen.pages as Record<string, unknown>[]) ?? [];
+
+  const cardPages: CardPage[] = pages.map((p) => ({
+    page: p.page as number,
+    headline: p.headline as string,
+    subtext: p.subtext as string | undefined,
+    imageKeyword: p.imageKeyword as string,
+    imageUrl: ((p.background as Record<string, unknown>)?.url as string) ?? undefined,
+  }));
+
+  return {
+    cardNews: { title: pen.title as string, pages: cardPages },
+    aspectRatio,
+  };
+}
 
 async function fetchImage(
   keyword: string,
@@ -116,6 +135,25 @@ export default function Home() {
     }
   };
 
+  const handleLoadPen = async (filename: string) => {
+    setIsLoading(true);
+    try {
+      const res = await fetch(`/api/pen-files/${filename}`);
+      if (!res.ok) throw new Error("파일 로드 실패");
+      const pen = await res.json();
+      const { cardNews: loaded, aspectRatio } = penToCardNews(pen);
+      setCardNews(loaded);
+      setSettings((s) => ({ ...s, aspectRatio }));
+      setSelectedPage(1);
+      imagePageRef.current = {};
+    } catch (e) {
+      console.error(e);
+      alert("파일 로드에 실패했습니다.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const handleUpdateCard = (page: number, updated: CardPage, _overlayOpacity: number) => {
     if (!cardNews) return;
     setCardNews({
@@ -126,7 +164,7 @@ export default function Home() {
 
   return (
     <div className="h-screen flex flex-col overflow-hidden">
-      <Header onExport={() => setIsExportOpen(true)} hasCards={!!cardNews} />
+      <Header onExport={() => setIsExportOpen(true)} hasCards={!!cardNews} onLoadPen={handleLoadPen} />
       <div className="flex-1 flex overflow-hidden">
         <InputPanel
           text={text}
