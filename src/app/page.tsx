@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import Header from "@/components/Header";
 import InputPanel from "@/components/InputPanel";
 import PreviewPanel from "@/components/PreviewPanel";
+import ExportModal from "@/components/ExportModal";
 import { CardNews, CardPage, EditorSettings, PenFile } from "@/types/card";
 
 const DEFAULT_SETTINGS: EditorSettings = {
@@ -35,7 +36,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [isRegenerating, setIsRegenerating] = useState(false);
   const [penFile, setPenFile] = useState<PenFile | null>(null);
-  // 페이지별 재탐색 페이지 번호 추적 (같은 키워드, 다른 결과)
+  const [isExportOpen, setIsExportOpen] = useState(false);
   const imagePageRef = useRef<Record<number, number>>({});
 
   const handleGenerate = async () => {
@@ -54,7 +55,6 @@ export default function Home() {
       if (!res.ok) throw new Error("분석 실패");
       const data: CardNews = await res.json();
 
-      // 모든 페이지 이미지 병렬 fetch
       imagePageRef.current = {};
       const pagesWithImages: CardPage[] = await Promise.all(
         data.pages.map(async (p) => {
@@ -66,7 +66,6 @@ export default function Home() {
 
       const draft: CardNews = { ...data, pages: pagesWithImages };
 
-      // 카피라이터 + 퍼블리셔 실행 (.pen 파일 생성)
       const publishRes = await fetch("/api/publish", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -95,7 +94,6 @@ export default function Home() {
       const targetPage = cardNews.pages.find((p) => p.page === page);
       if (!targetPage) return;
 
-      // 다음 페이지 번호로 재탐색 (같은 키워드, 다른 이미지)
       const nextImagePage = (imagePageRef.current[page] ?? 1) + 1;
       imagePageRef.current[page] = nextImagePage;
 
@@ -126,25 +124,9 @@ export default function Home() {
     });
   };
 
-  const handleExport = () => {
-    if (penFile) {
-      // .pen 파일 다운로드 (JSON)
-      const blob = new Blob([JSON.stringify(penFile, null, 2)], {
-        type: "application/json",
-      });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `${penFile.title ?? "card-news"}.pen`;
-      a.click();
-      URL.revokeObjectURL(url);
-    }
-    // TODO: 이슈#7 — PNG 내보내기 추가
-  };
-
   return (
     <div className="h-screen flex flex-col overflow-hidden">
-      <Header onExport={handleExport} hasCards={!!cardNews} />
+      <Header onExport={() => setIsExportOpen(true)} hasCards={!!cardNews} />
       <div className="flex-1 flex overflow-hidden">
         <InputPanel
           text={text}
@@ -164,6 +146,14 @@ export default function Home() {
           onUpdateCard={handleUpdateCard}
         />
       </div>
+
+      {isExportOpen && cardNews && (
+        <ExportModal
+          cardNews={cardNews}
+          aspectRatio={settings.aspectRatio}
+          onClose={() => setIsExportOpen(false)}
+        />
+      )}
     </div>
   );
 }

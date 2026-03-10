@@ -39,18 +39,23 @@ export async function POST(req: NextRequest) {
 원본 글:
 ${text}`;
 
-  const message = await client.messages.create({
-    model: "claude-sonnet-4-6",
-    max_tokens: 2048,
-    messages: [{ role: "user", content: prompt }],
-  });
+  try {
+    const message = await client.messages.create({
+      model: "claude-sonnet-4-6",
+      max_tokens: 2048,
+      messages: [{ role: "user", content: prompt }],
+    });
 
-  const raw = message.content[0].type === "text" ? message.content[0].text : "";
-  const jsonMatch = raw.match(/\{[\s\S]*\}/);
-  if (!jsonMatch) {
-    return NextResponse.json({ error: "응답 파싱 실패" }, { status: 500 });
+    const raw = message.content[0].type === "text" ? message.content[0].text : "";
+    const jsonMatch = raw.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) {
+      return NextResponse.json({ error: "응답 파싱 실패", raw }, { status: 500 });
+    }
+
+    const cardNews: CardNews = JSON.parse(jsonMatch[0]);
+    return NextResponse.json(cardNews);
+  } catch (e: unknown) {
+    const msg = e instanceof Error ? e.message : String(e);
+    return NextResponse.json({ error: msg }, { status: 500 });
   }
-
-  const cardNews: CardNews = JSON.parse(jsonMatch[0]);
-  return NextResponse.json(cardNews);
 }
