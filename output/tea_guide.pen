@@ -1,0 +1,249 @@
+{
+  "version": "1.0",
+  "title": "마시는 차 완전 가이드",
+  "aspectRatio": "1:1",
+  "width": 1080,
+  "height": 1080,
+  "pages": [
+    {
+      "page": 1,
+      "headline": "차, 물 다음으로 많이 마시는 음료",
+      "subtext": "마시는 차 완전 가이드",
+      "imageKeyword": "tea cup aesthetic",
+      "background": {
+        "type": "image",
+        "url": "https://images.unsplash.com/photo-1658852349395-a5d277ca6517?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4OTI1Mjd8MHwxfHNlYXJjaHwxfHx0ZWElMjBjdXAlMjBhZXN0aGV0aWN8ZW58MXwyfHx8MTc3MzE5MTU5Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+        "credit": "Davit Margaryan / Unsplash",
+        "overlay": 0.4
+      },
+      "layers": [
+        {
+          "type": "text",
+          "id": "headline-1",
+          "content": "차, 물 다음으로\n많이 마시는 음료",
+          "x": 80,
+          "y": 340,
+          "width": 920,
+          "fontSize": 72,
+          "fontWeight": "bold",
+          "color": "#FFFFFF",
+          "textAlign": "center",
+          "lineHeight": 1.2
+        },
+        {
+          "type": "text",
+          "id": "subtext-1",
+          "content": "마시는 차 완전 가이드",
+          "x": 80,
+          "y": 560,
+          "width": 920,
+          "fontSize": 36,
+          "fontWeight": "normal",
+          "color": "#F0F0F0",
+          "textAlign": "center",
+          "lineHeight": 1.5
+        }
+      ]
+    },
+    {
+      "page": 2,
+      "headline": "진짜 차 4가지",
+      "subtext": "차나무에서 나온 정통 차 분류",
+      "imageKeyword": "tea leaves variety",
+      "background": {
+        "type": "image",
+        "url": "https://images.unsplash.com/photo-1745302874687-8c75c345d5db?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4OTI1Mjd8MHwxfHNlYXJjaHwxfHx0ZWElMjBsZWF2ZXMlMjB2YXJpZXR5fGVufDF8Mnx8fDE3NzMxOTE1OTR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "credit": "Aditi Panatu / Unsplash",
+        "overlay": 0.5
+      },
+      "layers": [
+        {
+          "type": "text",
+          "id": "headline-2",
+          "content": "진짜 차 4가지\n녹차·홍차·우롱·백차",
+          "x": 80,
+          "y": 320,
+          "width": 920,
+          "fontSize": 68,
+          "fontWeight": "bold",
+          "color": "#FFFFFF",
+          "textAlign": "center",
+          "lineHeight": 1.2
+        },
+        {
+          "type": "text",
+          "id": "subtext-2",
+          "content": "차나무에서 나온 정통 차 분류",
+          "x": 80,
+          "y": 560,
+          "width": 920,
+          "fontSize": 32,
+          "fontWeight": "normal",
+          "color": "#E8F5E9",
+          "textAlign": "center",
+          "lineHeight": 1.5
+        }
+      ]
+    },
+    {
+      "page": 3,
+      "headline": "허브티는 카페인 제로",
+      "subtext": "캐모마일·페퍼민트·루이보스·히비스커스",
+      "imageKeyword": "herbal tea chamomile",
+      "background": {
+        "type": "image",
+        "url": "https://images.unsplash.com/photo-1630543378528-10043e324452?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4OTI1Mjd8MHwxfHNlYXJjaHwxfHxoZXJiYWwlMjB0ZWElMjBjaGFtb21pbGV8ZW58MXwyfHx8MTc3MzE5MTU5Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+        "credit": "Megan Lee / Unsplash",
+        "overlay": 0.45
+      },
+      "layers": [
+        {
+          "type": "text",
+          "id": "headline-3",
+          "content": "허브티는\n카페인 제로",
+          "x": 80,
+          "y": 320,
+          "width": 920,
+          "fontSize": 72,
+          "fontWeight": "bold",
+          "color": "#FFFFFF",
+          "textAlign": "center",
+          "lineHeight": 1.2
+        },
+        {
+          "type": "text",
+          "id": "subtext-3",
+          "content": "캐모마일 · 페퍼민트\n루이보스 · 히비스커스",
+          "x": 80,
+          "y": 560,
+          "width": 920,
+          "fontSize": 34,
+          "fontWeight": "normal",
+          "color": "#FFF9C4",
+          "textAlign": "center",
+          "lineHeight": 1.6
+        }
+      ]
+    },
+    {
+      "page": 4,
+      "headline": "항산화부터 수면 개선까지",
+      "subtext": "차의 5가지 핵심 효능",
+      "imageKeyword": "healthy green tea",
+      "background": {
+        "type": "image",
+        "url": "https://images.unsplash.com/photo-1615484477112-677decb29c57?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4OTI1Mjd8MHwxfHNlYXJjaHwxfHxoZWFsdGh5JTIwZ3JlZW4lMjB0ZWF8ZW58MXwyfHx8MTc3MzE5MTU5OHww&ixlib=rb-4.1.0&q=80&w=1080",
+        "credit": "Mockup Graphics / Unsplash",
+        "overlay": 0.5
+      },
+      "layers": [
+        {
+          "type": "text",
+          "id": "headline-4",
+          "content": "항산화부터\n수면 개선까지",
+          "x": 80,
+          "y": 320,
+          "width": 920,
+          "fontSize": 72,
+          "fontWeight": "bold",
+          "color": "#FFFFFF",
+          "textAlign": "center",
+          "lineHeight": 1.2
+        },
+        {
+          "type": "text",
+          "id": "subtext-4",
+          "content": "차의 5가지 핵심 효능",
+          "x": 80,
+          "y": 560,
+          "width": 920,
+          "fontSize": 36,
+          "fontWeight": "normal",
+          "color": "#F0F0F0",
+          "textAlign": "center",
+          "lineHeight": 1.5
+        }
+      ]
+    },
+    {
+      "page": 5,
+      "headline": "온도가 맛을 결정한다",
+      "subtext": "녹차 70°C, 홍차 100°C",
+      "imageKeyword": "hot water kettle tea",
+      "background": {
+        "type": "image",
+        "url": "https://images.unsplash.com/photo-1768768772927-a44003c5e04a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4OTI1Mjd8MHwxfHNlYXJjaHwxfHxob3QlMjB3YXRlciUyMGtldHRsZSUyMHRlYXxlbnwxfDJ8fHwxNzczMTkxNjAwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "credit": "Moustafa Neamatalla / Unsplash",
+        "overlay": 0.55
+      },
+      "layers": [
+        {
+          "type": "text",
+          "id": "headline-5",
+          "content": "온도가\n맛을 결정한다",
+          "x": 80,
+          "y": 300,
+          "width": 920,
+          "fontSize": 72,
+          "fontWeight": "bold",
+          "color": "#FFFFFF",
+          "textAlign": "center",
+          "lineHeight": 1.2
+        },
+        {
+          "type": "text",
+          "id": "subtext-5",
+          "content": "녹차 70°C · 홍차 100°C",
+          "x": 80,
+          "y": 560,
+          "width": 920,
+          "fontSize": 34,
+          "fontWeight": "normal",
+          "color": "#FFECB3",
+          "textAlign": "center",
+          "lineHeight": 1.5
+        }
+      ]
+    },
+    {
+      "page": 6,
+      "headline": "오늘, 당신의 차 한 잔",
+      "subtext": "하루의 리듬에 맞춘 작은 쉼",
+      "imageKeyword": "calm tea moment",
+      "background": {
+        "type": "image",
+        "url": "https://images.unsplash.com/photo-1640532125530-d3f2c0e3f336?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4OTI1Mjd8MHwxfHNlYXJjaHwxfHxjYWxtJTIwdGVhJTIwbW9tZW50fGVufDF8Mnx8fDE3NzMxOTE2MDF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "credit": "MARIOLA GROBELSKA / Unsplash",
+        "overlay": 0.4
+      },
+      "layers": [
+        {
+          "type": "text",
+          "id": "headline-6",
+          "content": "오늘,\n당신의 차 한 잔",
+          "x": 80,
+          "y": 340,
+          "width": 920,
+          "fontSize": 76,
+          "fontWeight": "bold",
+          "color": "#FFFFFF",
+          "textAlign": "center",
+          "lineHeight": 1.2
+        },
+        {
+          "type": "text",
+          "id": "subtext-6",
+          "content": "하루의 리듬에 맞춘 작은 쉼",
+          "x": 80,
+          "y": 570,
+          "width": 920,
+          "fontSize": 32,
+          "fontWeight": "normal",
+          "color": "#F5F5F5",
+          "textAlign": "center",
+          "lineHeight": 1.6
+        }
+      ]
+    }
+  ]
+}

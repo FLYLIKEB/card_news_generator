@@ -1,0 +1,31 @@
+{
+  "title": "coffee_test",
+  "ratio": "1:1",
+  "style": "minimal",
+  "pages": [
+    {
+      "page": 1,
+      "headline": "커피, 얼마나 아시나요?",
+      "subtext": "당신의 커피 지식을 테스트해보세요",
+      "imageKeyword": "coffee beans"
+    },
+    {
+      "page": 2,
+      "headline": "원두의 두 얼굴",
+      "subtext": "아라비카 vs 로부스타, 그 차이는?",
+      "imageKeyword": "coffee roasting"
+    },
+    {
+      "page": 3,
+      "headline": "추출이 맛을 바꾼다",
+      "subtext": "드립 · 에스프레소 · 콜드브루 비교",
+      "imageKeyword": "pour over coffee"
+    },
+    {
+      "page": 4,
+      "headline": "나만의 커피 찾기",
+      "subtext": "취향별 커피 선택 가이드",
+      "imageKeyword": "coffee cup minimal"
+    }
+  ]
+}

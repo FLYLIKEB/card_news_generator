@@ -1,0 +1,44 @@
+{
+  "title": "tea_guide",
+  "ratio": "1:1",
+  "canvasWidth": 1080,
+  "canvasHeight": 1080,
+  "pages": [
+    {
+      "page": 1,
+      "headline": "차, 물 다음으로\n많이 마시는 음료",
+      "subtext": "마시는 차 완전 가이드",
+      "imageKeyword": "tea cup aesthetic"
+    },
+    {
+      "page": 2,
+      "headline": "진짜 차 4가지\n녹차·홍차·우롱·백차",
+      "subtext": "차나무에서 나온 정통 차 분류",
+      "imageKeyword": "tea leaves variety"
+    },
+    {
+      "page": 3,
+      "headline": "허브티는\n카페인 제로",
+      "subtext": "캐모마일·페퍼민트·루이보스·히비스커스",
+      "imageKeyword": "herbal tea chamomile"
+    },
+    {
+      "page": 4,
+      "headline": "항산화부터\n수면 개선까지",
+      "subtext": "차의 5가지 핵심 효능",
+      "imageKeyword": "healthy green tea"
+    },
+    {
+      "page": 5,
+      "headline": "온도가\n맛을 결정한다",
+      "subtext": "녹차 70°C, 홍차 100°C",
+      "imageKeyword": "hot water kettle tea"
+    },
+    {
+      "page": 6,
+      "headline": "오늘,\n당신의 차 한 잔",
+      "subtext": "하루의 리듬에 맞춘 작은 쉼",
+      "imageKeyword": "calm tea moment"
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "title": "six_tea_types",
+  "ratio": "1:1",
+  "pages": [
+    {
+      "page": 1,
+      "type": "cover",
+      "headline": "6대 다류",
+      "subtext": "차(茶)의 세계를 이해하는 기초",
+      "imageKeyword": "tea ceremony traditional japanese"
+    },
+    {
+      "page": 2,
+      "type": "intro",
+      "headline": "차란 무엇인가",
+      "subtext": "차나무(Camellia sinensis) 잎으로 만든 음료. 가공 방법에 따라 발효도가 달라지며 색·향·맛이 전혀 다른 차가 됩니다.",
+      "imageKeyword": "camellia sinensis tea plant leaves"
+    },
+    {
+      "page": 3,
+      "type": "content",
+      "headline": "녹차 — 불발효",
+      "subtext": "가장 자연에 가까운 차. 신선한 풀향과 담백한 맛. 한국 녹차·말차·용정차",
+      "imageKeyword": "green tea matcha japanese"
+    },
+    {
+      "page": 4,
+      "type": "content",
+      "headline": "백차 — 미발효",
+      "subtext": "최소한의 가공. 시들려 자연 건조. 섬세한 꽃향과 단맛. 백호은침·백모단",
+      "imageKeyword": "white tea delicate floral cup"
+    },
+    {
+      "page": 5,
+      "type": "content",
+      "headline": "황차 — 약발효",
+      "subtext": "민황(悶黃) 과정으로 부드럽고 깊은 단맛. 희귀한 차. 군산은침·몽정황아",
+      "imageKeyword": "yellow golden tea cup warm"
+    },
+    {
+      "page": 6,
+      "type": "content",
+      "headline": "청차 — 반발효",
+      "subtext": "우롱차. 발효도 15~85%. 꽃향·과일향·구수함이 어우러진 복합적인 차.",
+      "imageKeyword": "oolong tea taiwanese traditional"
+    },
+    {
+      "page": 7,
+      "type": "content",
+      "headline": "홍차 — 완전발효",
+      "subtext": "완전 산화. 진한 붉은빛과 풍부한 향미. 전 세계 소비량 1위. 다즐링·아쌈·얼그레이",
+      "imageKeyword": "black tea english cup elegant"
+    },
+    {
+      "page": 8,
+      "type": "content",
+      "headline": "흑차 — 후발효",
+      "subtext": "미생물 발효. 수개월~수년 숙성. 깊은 토양향. 오래될수록 더 깊어지는 보이차.",
+      "imageKeyword": "pu-erh dark tea aged compressed"
+    },
+    {
+      "page": 9,
+      "type": "table",
+      "headline": "나에게 맞는 차는?",
+      "subtext": "녹차·백차(집중·휴식) / 황차·청차(식후·향) / 홍차(아침) / 흑차(소화·장기)",
+      "imageKeyword": "tea selection variety assortment"
+    },
+    {
+      "page": 10,
+      "type": "closing",
+      "headline": "하나의 잎, 여섯 가지 세계",
+      "subtext": "같은 나무에서 시작되지만, 사람의 손길에 따라 전혀 다른 음료가 됩니다. 당신에게 맞는 차 한 잔을 찾아보세요.",
+      "imageKeyword": "tea zen minimalist peaceful"
+    }
+  ]
+}

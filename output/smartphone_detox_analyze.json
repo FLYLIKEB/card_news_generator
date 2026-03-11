@@ -1,0 +1,49 @@
+{
+  "title": "smartphone_detox",
+  "ratio": "1:1",
+  "style": "minimal",
+  "pages": [
+    {
+      "page": 1,
+      "headline": "스마트폰 없이 하루?",
+      "subtext": "스탠퍼드대 디지털 디톡스 실험",
+      "imageKeyword": "digital detox meditation",
+      "imageUrl": "https://images.unsplash.com/photo-1631122439414-57ee0a1e26c9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4OTI1Mjd8MHwxfHNlYXJjaHwxfHxkaWdpdGFsJTIwZGV0b3glMjBtZWRpdGF0aW9ufGVufDF8Mnx8fDE3NzMyMTM4Mjl8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    },
+    {
+      "page": 2,
+      "headline": "200명의 실험",
+      "subtext": "1주일간 스마트폰 완전 차단",
+      "imageKeyword": "smartphone screen addiction",
+      "imageUrl": "https://images.unsplash.com/photo-1631237534324-4b961b17b424?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4OTI1Mjd8MHwxfHNlYXJjaHwxfHxzbWFydHBob25lJTIwc2NyZWVuJTIwYWRkaWN0aW9ufGVufDF8Mnx8fDE3NzMyMTM4MzJ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    },
+    {
+      "page": 3,
+      "headline": "첫 3일: 불안·집중↓",
+      "subtext": "뇌가 디지털 습관을 끊는 과정",
+      "imageKeyword": "anxiety stress person",
+      "imageUrl": "https://images.unsplash.com/photo-1659921852038-893d6884bbc6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4OTI1Mjd8MHwxfHNlYXJjaHwxfHxhbnhpZXR5JTIwc3RyZXNzJTIwcGVyc29ufGVufDF8Mnx8fDE3NzMyMTM4MzN8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    },
+    {
+      "page": 4,
+      "headline": "4일째: 수면 34% 향상",
+      "subtext": "잠들기까지 시간이 줄어들었다",
+      "imageKeyword": "sleeping peaceful night",
+      "imageUrl": "https://images.unsplash.com/photo-1736853013202-4fceb6f9c27a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4OTI1Mjd8MHwxfHNlYXJjaHwxfHxzbGVlcGluZyUyMHBlYWNlZnVsJTIwbmlnaHR8ZW58MXwyfHx8MTc3MzIxMzgzNXww&ixlib=rb-4.1.0&q=80&w=1080"
+    },
+    {
+      "page": 5,
+      "headline": "7일 후: 행복도 28%↑",
+      "subtext": "대면 대화 2.7배, 삶의 질 회복",
+      "imageKeyword": "friends conversation happy",
+      "imageUrl": "https://images.unsplash.com/photo-1642391326183-7a7cbe030b42?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4OTI1Mjd8MHwxfHNlYXJjaHwxfHxmcmllbmRzJTIwY29udmVyc2F0aW9uJTIwaGFwcHl8ZW58MXwyfHx8MTc3MzIxMzg0N3ww&ixlib=rb-4.1.0&q=80&w=1080"
+    },
+    {
+      "page": 6,
+      "headline": "오늘 내려놓아 보세요",
+      "subtext": "습관을 바꾸는 건 하루면 충분",
+      "imageKeyword": "calm nature mindful",
+      "imageUrl": "https://images.unsplash.com/photo-1759835293625-450b216ffc1f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4OTI1Mjd8MHwxfHNlYXJjaHwxfHxjYWxtJTIwbmF0dXJlJTIwbWluZGZ1bHxlbnwxfDJ8fHwxNzczMjEzODQ4fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    }
+  ]
+}

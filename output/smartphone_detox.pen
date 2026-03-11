@@ -1,0 +1,303 @@
+{
+  "version": "1.0",
+  "meta": {
+    "title": "smartphone_detox",
+    "ratio": "1:1",
+    "style": "minimal",
+    "createdAt": "2026-03-11T00:00:00.000Z"
+  },
+  "canvas": {
+    "width": 1080,
+    "height": 1080
+  },
+  "pages": [
+    {
+      "id": "page-1",
+      "layers": [
+        {
+          "id": "bg-1",
+          "type": "image",
+          "src": "https://images.unsplash.com/photo-1631122439414-57ee0a1e26c9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4OTI1Mjd8MHwxfHNlYXJjaHwxfHxkaWdpdGFsJTIwZGV0b3glMjBtZWRpdGF0aW9ufGVufDF8Mnx8fDE3NzMyMTM4Mjl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+          "x": 0,
+          "y": 0,
+          "width": 1080,
+          "height": 1080,
+          "fit": "cover"
+        },
+        {
+          "id": "overlay-1",
+          "type": "rect",
+          "x": 0,
+          "y": 0,
+          "width": 1080,
+          "height": 1080,
+          "fill": "rgba(0,0,0,0.4)"
+        },
+        {
+          "id": "headline-1",
+          "type": "text",
+          "text": "스마트폰 없이 하루?",
+          "x": 80,
+          "y": 410,
+          "width": 920,
+          "fontSize": 72,
+          "fontWeight": "bold",
+          "color": "#ffffff",
+          "textAlign": "center"
+        },
+        {
+          "id": "subtext-1",
+          "type": "text",
+          "text": "스탠퍼드대 디지털 디톡스 실험",
+          "x": 80,
+          "y": 520,
+          "width": 920,
+          "fontSize": 36,
+          "fontWeight": "normal",
+          "color": "#ffffff",
+          "textAlign": "center"
+        }
+      ]
+    },
+    {
+      "id": "page-2",
+      "layers": [
+        {
+          "id": "bg-2",
+          "type": "image",
+          "src": "https://images.unsplash.com/photo-1631237534324-4b961b17b424?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4OTI1Mjd8MHwxfHNlYXJjaHwxfHxzbWFydHBob25lJTIwc2NyZWVuJTIwYWRkaWN0aW9ufGVufDF8Mnx8fDE3NzMyMTM4MzJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+          "x": 0,
+          "y": 0,
+          "width": 1080,
+          "height": 1080,
+          "fit": "cover"
+        },
+        {
+          "id": "overlay-2",
+          "type": "rect",
+          "x": 0,
+          "y": 0,
+          "width": 1080,
+          "height": 1080,
+          "fill": "rgba(0,0,0,0.4)"
+        },
+        {
+          "id": "headline-2",
+          "type": "text",
+          "text": "200명의 실험",
+          "x": 80,
+          "y": 410,
+          "width": 920,
+          "fontSize": 72,
+          "fontWeight": "bold",
+          "color": "#ffffff",
+          "textAlign": "center"
+        },
+        {
+          "id": "subtext-2",
+          "type": "text",
+          "text": "1주일간 스마트폰 완전 차단",
+          "x": 80,
+          "y": 520,
+          "width": 920,
+          "fontSize": 36,
+          "fontWeight": "normal",
+          "color": "#ffffff",
+          "textAlign": "center"
+        }
+      ]
+    },
+    {
+      "id": "page-3",
+      "layers": [
+        {
+          "id": "bg-3",
+          "type": "image",
+          "src": "https://images.unsplash.com/photo-1659921852038-893d6884bbc6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4OTI1Mjd8MHwxfHNlYXJjaHwxfHxhbnhpZXR5JTIwc3RyZXNzJTIwcGVyc29ufGVufDF8Mnx8fDE3NzMyMTM4MzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+          "x": 0,
+          "y": 0,
+          "width": 1080,
+          "height": 1080,
+          "fit": "cover"
+        },
+        {
+          "id": "overlay-3",
+          "type": "rect",
+          "x": 0,
+          "y": 0,
+          "width": 1080,
+          "height": 1080,
+          "fill": "rgba(0,0,0,0.4)"
+        },
+        {
+          "id": "headline-3",
+          "type": "text",
+          "text": "첫 3일: 불안·집중↓",
+          "x": 80,
+          "y": 410,
+          "width": 920,
+          "fontSize": 72,
+          "fontWeight": "bold",
+          "color": "#ffffff",
+          "textAlign": "center"
+        },
+        {
+          "id": "subtext-3",
+          "type": "text",
+          "text": "뇌가 디지털 습관을 끊는 과정",
+          "x": 80,
+          "y": 520,
+          "width": 920,
+          "fontSize": 36,
+          "fontWeight": "normal",
+          "color": "#ffffff",
+          "textAlign": "center"
+        }
+      ]
+    },
+    {
+      "id": "page-4",
+      "layers": [
+        {
+          "id": "bg-4",
+          "type": "image",
+          "src": "https://images.unsplash.com/photo-1736853013202-4fceb6f9c27a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4OTI1Mjd8MHwxfHNlYXJjaHwxfHxzbGVlcGluZyUyMHBlYWNlZnVsJTIwbmlnaHR8ZW58MXwyfHx8MTc3MzIxMzgzNXww&ixlib=rb-4.1.0&q=80&w=1080",
+          "x": 0,
+          "y": 0,
+          "width": 1080,
+          "height": 1080,
+          "fit": "cover"
+        },
+        {
+          "id": "overlay-4",
+          "type": "rect",
+          "x": 0,
+          "y": 0,
+          "width": 1080,
+          "height": 1080,
+          "fill": "rgba(0,0,0,0.4)"
+        },
+        {
+          "id": "headline-4",
+          "type": "text",
+          "text": "4일째: 수면 34% 향상",
+          "x": 80,
+          "y": 410,
+          "width": 920,
+          "fontSize": 72,
+          "fontWeight": "bold",
+          "color": "#ffffff",
+          "textAlign": "center"
+        },
+        {
+          "id": "subtext-4",
+          "type": "text",
+          "text": "잠들기까지 시간이 줄어들었다",
+          "x": 80,
+          "y": 520,
+          "width": 920,
+          "fontSize": 36,
+          "fontWeight": "normal",
+          "color": "#ffffff",
+          "textAlign": "center"
+        }
+      ]
+    },
+    {
+      "id": "page-5",
+      "layers": [
+        {
+          "id": "bg-5",
+          "type": "image",
+          "src": "https://images.unsplash.com/photo-1642391326183-7a7cbe030b42?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4OTI1Mjd8MHwxfHNlYXJjaHwxfHxmcmllbmRzJTIwY29udmVyc2F0aW9uJTIwaGFwcHl8ZW58MXwyfHx8MTc3MzIxMzg0N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+          "x": 0,
+          "y": 0,
+          "width": 1080,
+          "height": 1080,
+          "fit": "cover"
+        },
+        {
+          "id": "overlay-5",
+          "type": "rect",
+          "x": 0,
+          "y": 0,
+          "width": 1080,
+          "height": 1080,
+          "fill": "rgba(0,0,0,0.4)"
+        },
+        {
+          "id": "headline-5",
+          "type": "text",
+          "text": "7일 후: 행복도 28%↑",
+          "x": 80,
+          "y": 410,
+          "width": 920,
+          "fontSize": 72,
+          "fontWeight": "bold",
+          "color": "#ffffff",
+          "textAlign": "center"
+        },
+        {
+          "id": "subtext-5",
+          "type": "text",
+          "text": "대면 대화 2.7배, 삶의 질 회복",
+          "x": 80,
+          "y": 520,
+          "width": 920,
+          "fontSize": 36,
+          "fontWeight": "normal",
+          "color": "#ffffff",
+          "textAlign": "center"
+        }
+      ]
+    },
+    {
+      "id": "page-6",
+      "layers": [
+        {
+          "id": "bg-6",
+          "type": "image",
+          "src": "https://images.unsplash.com/photo-1759835293625-450b216ffc1f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4OTI1Mjd8MHwxfHNlYXJjaHwxfHxjYWxtJTIwbmF0dXJlJTIwbWluZGZ1bHxlbnwxfDJ8fHwxNzczMjEzODQ4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+          "x": 0,
+          "y": 0,
+          "width": 1080,
+          "height": 1080,
+          "fit": "cover"
+        },
+        {
+          "id": "overlay-6",
+          "type": "rect",
+          "x": 0,
+          "y": 0,
+          "width": 1080,
+          "height": 1080,
+          "fill": "rgba(0,0,0,0.4)"
+        },
+        {
+          "id": "headline-6",
+          "type": "text",
+          "text": "오늘 내려놓아 보세요",
+          "x": 80,
+          "y": 410,
+          "width": 920,
+          "fontSize": 72,
+          "fontWeight": "bold",
+          "color": "#ffffff",
+          "textAlign": "center"
+        },
+        {
+          "id": "subtext-6",
+          "type": "text",
+          "text": "습관을 바꾸는 건 하루면 충분",
+          "x": 80,
+          "y": 520,
+          "width": 920,
+          "fontSize": 36,
+          "fontWeight": "normal",
+          "color": "#ffffff",
+          "textAlign": "center"
+        }
+      ]
+    }
+  ]
+}
