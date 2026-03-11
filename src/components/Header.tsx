@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 interface PenFileEntry {
@@ -11,9 +10,10 @@ interface HeaderProps {
   onExport: () => void;
   hasCards: boolean;
   onLoadPen: (filename: string) => void;
+  onNew: () => void;
 }
 
-export default function Header({ onExport, hasCards, onLoadPen }: HeaderProps) {
+export default function Header({ onExport, hasCards, onLoadPen, onNew }: HeaderProps) {
   const [open, setOpen] = useState(false);
   const [files, setFiles] = useState<PenFileEntry[]>([]);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -39,6 +39,13 @@ export default function Header({ onExport, hasCards, onLoadPen }: HeaderProps) {
     <header className="flex items-center justify-between px-6 py-4 border-b border-gray-200 bg-white">
       <h1 className="text-lg font-semibold text-gray-900">카드뉴스 에디터</h1>
       <div className="flex items-center gap-2">
+        {/* 새 카드뉴스 */}
+        <button
+          onClick={onNew}
+          className="px-4 py-2 text-sm font-medium border border-gray-200 rounded-lg hover:border-gray-400 transition-colors"
+        >
+          새 카드뉴스
+        </button>
         {/* .pen 파일 불러오기 */}
         <div className="relative" ref={dropdownRef}>
           <button
@@ -65,12 +72,6 @@ export default function Header({ onExport, hasCards, onLoadPen }: HeaderProps) {
             </div>
           )}
         </div>
-        <Link
-          href="/preview"
-          className="px-4 py-2 text-sm font-medium border border-gray-200 rounded-lg hover:border-gray-400 transition-colors"
-        >
-          .pen 미리보기
-        </Link>
         <button
           onClick={onExport}
           disabled={!hasCards}

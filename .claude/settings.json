@@ -1,0 +1,37 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git *)",
+      "Bash(npm *)",
+      "Bash(npx *)",
+      "Bash(node *)",
+      "Bash(ls *)",
+      "Bash(find *)",
+      "Bash(cat *)",
+      "Bash(chmod *)",
+      "Bash(curl *)",
+      "Bash(claude *)",
+      "Bash(CLAUDECODE=* claude *)",
+      "Bash(mkdir *)",
+      "Bash(rm *)",
+      "Bash(cp *)",
+      "Bash(mv *)",
+      "Bash(xattr *)",
+      "Bash(open *)",
+      "Bash(which *)",
+      "Bash(pwd)",
+      "Bash(echo *)",
+      "mcp__filesystem__*",
+      "mcp__puppeteer__*",
+      "mcp__github__*",
+      "mcp__memory__*",
+      "Bash(env -u CLAUDECODE claude --version)",
+      "Bash(env -u CLAUDECODE claude -p \"say hello\")"
+    ],
+    "additionalDirectories": [
+      "/Users/jwp/Documents/programming/card_news_edditor/.claude",
+      "/Users/jwp/Library/Caches/electron/*",
+      "/Users/jwp/Documents/programming/card_news_edditor/src/app/api/generate"
+    ]
+  }
+}

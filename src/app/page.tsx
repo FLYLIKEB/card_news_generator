@@ -1,19 +1,13 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 import Header from "@/components/Header";
-import InputPanel from "@/components/InputPanel";
 import PreviewPanel from "@/components/PreviewPanel";
 import ExportModal from "@/components/ExportModal";
-import { AspectRatio, CardNews, CardPage, EditorSettings, PenFile } from "@/types/card";
+import InputPanel from "@/components/InputPanel";
+import { AspectRatio, CardNews, CardPage } from "@/types/card";
 
-const DEFAULT_SETTINGS: EditorSettings = {
-  aspectRatio: "1:1",
-  style: "minimal",
-  pageCount: 6,
-};
-
-// .pen JSON → CardNews 변환 (preview/page.tsx와 동일한 포맷 지원)
+// .pen JSON → CardNews 변환
 function penToCardNews(pen: Record<string, unknown>): { cardNews: CardNews; aspectRatio: AspectRatio } {
   const aspectRatio = (pen.aspectRatio as AspectRatio) ?? "1:1";
   const pages = (pen.pages as Record<string, unknown>[]) ?? [];
@@ -48,63 +42,36 @@ async function fetchImage(
 }
 
 export default function Home() {
-  const [text, setText] = useState("");
-  const [settings, setSettings] = useState<EditorSettings>(DEFAULT_SETTINGS);
   const [cardNews, setCardNews] = useState<CardNews | null>(null);
+  const [aspectRatio, setAspectRatio] = useState<AspectRatio>("1:1");
   const [selectedPage, setSelectedPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [isRegenerating, setIsRegenerating] = useState(false);
-  const [penFile, setPenFile] = useState<PenFile | null>(null);
   const [isExportOpen, setIsExportOpen] = useState(false);
   const imagePageRef = useRef<Record<number, number>>({});
 
-  const handleGenerate = async () => {
-    if (!text.trim()) return;
+  const handleLoadPen = useCallback(async (filename: string) => {
     setIsLoading(true);
     try {
-      const res = await fetch("/api/analyze", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          text,
-          pageCount: settings.pageCount,
-          style: settings.style,
-        }),
-      });
-      if (!res.ok) throw new Error("분석 실패");
-      const data: CardNews = await res.json();
-
-      imagePageRef.current = {};
-      const pagesWithImages: CardPage[] = await Promise.all(
-        data.pages.map(async (p) => {
-          imagePageRef.current[p.page] = 1;
-          const imageUrl = await fetchImage(p.imageKeyword, settings.aspectRatio, 1);
-          return { ...p, imageUrl };
-        })
-      );
-
-      const draft: CardNews = { ...data, pages: pagesWithImages };
-
-      const publishRes = await fetch("/api/publish", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ cardNews: draft, aspectRatio: settings.aspectRatio }),
-      });
-      if (publishRes.ok) {
-        const { penFile: pen, cardNews: refined } = await publishRes.json();
-        setCardNews(refined);
-        setPenFile(pen);
-      } else {
-        setCardNews(draft);
-      }
+      const res = await fetch(`/api/pen-files/${filename}`);
+      if (!res.ok) throw new Error("파일 로드 실패");
+      const pen = await res.json();
+      const { cardNews: loaded, aspectRatio: ratio } = penToCardNews(pen);
+      setCardNews(loaded);
+      setAspectRatio(ratio);
       setSelectedPage(1);
+      imagePageRef.current = {};
     } catch (e) {
       console.error(e);
-      alert("카드뉴스 생성에 실패했습니다. 다시 시도해주세요.");
+      alert("파일 로드에 실패했습니다.");
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
+
+  const handleNew = useCallback(() => {
+    setCardNews(null);
+  }, []);
 
   const handleRegenerate = async (page: number) => {
     if (!cardNews) return;
@@ -118,7 +85,7 @@ export default function Home() {
 
       const imageUrl = await fetchImage(
         targetPage.imageKeyword,
-        settings.aspectRatio,
+        aspectRatio,
         nextImagePage
       );
 
@@ -135,26 +102,7 @@ export default function Home() {
     }
   };
 
-  const handleLoadPen = async (filename: string) => {
-    setIsLoading(true);
-    try {
-      const res = await fetch(`/api/pen-files/${filename}`);
-      if (!res.ok) throw new Error("파일 로드 실패");
-      const pen = await res.json();
-      const { cardNews: loaded, aspectRatio } = penToCardNews(pen);
-      setCardNews(loaded);
-      setSettings((s) => ({ ...s, aspectRatio }));
-      setSelectedPage(1);
-      imagePageRef.current = {};
-    } catch (e) {
-      console.error(e);
-      alert("파일 로드에 실패했습니다.");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleUpdateCard = (page: number, updated: CardPage, _overlayOpacity: number) => {
+  const handleUpdateCard = (page: number, updated: CardPage) => {
     if (!cardNews) return;
     setCardNews({
       ...cardNews,
@@ -162,33 +110,39 @@ export default function Home() {
     });
   };
 
+  // 랜딩 화면: cardNews 없을 때
+  if (!cardNews) {
+    return (
+      <div className="h-screen flex flex-col overflow-hidden">
+        <InputPanel onLoadPen={handleLoadPen} />
+      </div>
+    );
+  }
+
+  // 편집기 화면: cardNews 있을 때
   return (
     <div className="h-screen flex flex-col overflow-hidden">
-      <Header onExport={() => setIsExportOpen(true)} hasCards={!!cardNews} onLoadPen={handleLoadPen} />
-      <div className="flex-1 flex overflow-hidden">
-        <InputPanel
-          text={text}
-          onTextChange={setText}
-          settings={settings}
-          onSettingsChange={setSettings}
-          onGenerate={handleGenerate}
-          isLoading={isLoading}
-        />
-        <PreviewPanel
-          cardNews={cardNews}
-          selectedPage={selectedPage}
-          onSelectPage={setSelectedPage}
-          aspectRatio={settings.aspectRatio}
-          onRegenerate={handleRegenerate}
-          isRegenerating={isRegenerating}
-          onUpdateCard={handleUpdateCard}
-        />
-      </div>
+      <Header
+        onExport={() => setIsExportOpen(true)}
+        hasCards={!!cardNews}
+        onLoadPen={handleLoadPen}
+        onNew={handleNew}
+      />
+      <PreviewPanel
+        cardNews={cardNews}
+        selectedPage={selectedPage}
+        onSelectPage={setSelectedPage}
+        aspectRatio={aspectRatio}
+        onRegenerate={handleRegenerate}
+        isRegenerating={isRegenerating}
+        onUpdateCard={handleUpdateCard}
+        isLoading={isLoading}
+      />
 
       {isExportOpen && cardNews && (
         <ExportModal
           cardNews={cardNews}
-          aspectRatio={settings.aspectRatio}
+          aspectRatio={aspectRatio}
           onClose={() => setIsExportOpen(false)}
         />
       )}

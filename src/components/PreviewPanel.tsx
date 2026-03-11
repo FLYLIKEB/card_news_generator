@@ -12,6 +12,7 @@ interface PreviewPanelProps {
   onRegenerate: (page: number) => void;
   isRegenerating: boolean;
   onUpdateCard: (page: number, updated: CardPage, overlayOpacity: number) => void;
+  isLoading: boolean;
 }
 
 export default function PreviewPanel({
@@ -22,11 +23,25 @@ export default function PreviewPanel({
   onRegenerate,
   isRegenerating,
   onUpdateCard,
+  isLoading,
 }: PreviewPanelProps) {
+  if (isLoading) {
+    return (
+      <div className="flex-1 flex items-center justify-center bg-gray-50">
+        <p className="text-gray-400 text-sm">불러오는 중...</p>
+      </div>
+    );
+  }
+
   if (!cardNews) {
     return (
       <div className="flex-1 flex items-center justify-center bg-gray-50">
-        <p className="text-gray-400 text-sm">글을 입력하고 생성하기를 눌러보세요</p>
+        <div className="text-center">
+          <p className="text-gray-400 text-sm">파일 열기로 .pen 파일을 불러오세요</p>
+          <p className="text-gray-300 text-xs mt-2">
+            /card-generate 스킬로 .pen 파일을 먼저 생성하세요
+          </p>
+        </div>
       </div>
     );
   }
