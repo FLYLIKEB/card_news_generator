@@ -1,11 +1,14 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import Header from "@/components/Header";
 import PreviewPanel from "@/components/PreviewPanel";
 import ExportModal from "@/components/ExportModal";
 import InputPanel from "@/components/InputPanel";
+import TerminalPanel from "@/components/TerminalPanel";
 import { AspectRatio, CardNews, CardPage } from "@/types/card";
+
+const isElectron = typeof window !== "undefined" && !!window.electronAPI;
 
 // .pen JSON → CardNews 변환
 function penToCardNews(pen: Record<string, unknown>): { cardNews: CardNews; aspectRatio: AspectRatio } {
@@ -48,19 +51,32 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [isRegenerating, setIsRegenerating] = useState(false);
   const [isExportOpen, setIsExportOpen] = useState(false);
+  // Electron 전용: 터미널 패널 표시 여부
+  const [showTerminal, setShowTerminal] = useState(isElectron);
   const imagePageRef = useRef<Record<number, number>>({});
 
   const handleLoadPen = useCallback(async (filename: string) => {
     setIsLoading(true);
     try {
-      const res = await fetch(`/api/pen-files/${filename}`);
-      if (!res.ok) throw new Error("파일 로드 실패");
-      const pen = await res.json();
+      let pen: Record<string, unknown>;
+
+      if (isElectron && window.electronAPI) {
+        // Electron: IPC로 직접 읽기
+        pen = await window.electronAPI.readPenFile(filename);
+      } else {
+        // 웹: Next.js API route
+        const res = await fetch(`/api/pen-files/${filename}`);
+        if (!res.ok) throw new Error("파일 로드 실패");
+        pen = await res.json();
+      }
+
       const { cardNews: loaded, aspectRatio: ratio } = penToCardNews(pen);
       setCardNews(loaded);
       setAspectRatio(ratio);
       setSelectedPage(1);
       imagePageRef.current = {};
+      // .pen 로드 시 터미널 접기 (선택적)
+      // setShowTerminal(false);
     } catch (e) {
       console.error(e);
       alert("파일 로드에 실패했습니다.");
@@ -69,8 +85,21 @@ export default function Home() {
     }
   }, []);
 
+  // chokidar가 .pen 생성 감지 → 자동 로드
+  const handlePenCreated = useCallback((filename: string) => {
+    handleLoadPen(filename);
+  }, [handleLoadPen]);
+
   const handleNew = useCallback(() => {
     setCardNews(null);
+    if (isElectron) setShowTerminal(true);
+  }, []);
+
+  // Electron: 창 열릴 때 .pen 파일 목록을 IPC로 조회하도록 InputPanel 대응
+  useEffect(() => {
+    if (!isElectron) return;
+    // Electron 환경에서는 /api/pen-files 대신 IPC 사용
+    // InputPanel 내부에서 분기 처리됨 (window.electronAPI 체크)
   }, []);
 
   const handleRegenerate = async (page: number) => {
@@ -110,7 +139,61 @@ export default function Home() {
     });
   };
 
-  // 랜딩 화면: cardNews 없을 때
+  // Electron 앱: 터미널 + 편집기 분할 레이아웃
+  if (isElectron) {
+    return (
+      <div className="h-screen flex flex-col overflow-hidden">
+        <Header
+          onExport={() => setIsExportOpen(true)}
+          hasCards={!!cardNews}
+          onLoadPen={handleLoadPen}
+          onNew={handleNew}
+          onToggleTerminal={() => setShowTerminal((v) => !v)}
+          showTerminal={showTerminal}
+        />
+
+        <div className="flex-1 flex overflow-hidden">
+          {/* 편집기 영역 */}
+          <div className={`flex-1 overflow-hidden transition-all ${showTerminal ? "w-[60%]" : "w-full"}`}>
+            {cardNews ? (
+              <PreviewPanel
+                cardNews={cardNews}
+                selectedPage={selectedPage}
+                onSelectPage={setSelectedPage}
+                aspectRatio={aspectRatio}
+                onRegenerate={handleRegenerate}
+                isRegenerating={isRegenerating}
+                onUpdateCard={handleUpdateCard}
+                isLoading={isLoading}
+              />
+            ) : (
+              <InputPanel onLoadPen={handleLoadPen} />
+            )}
+          </div>
+
+          {/* 터미널 패널 */}
+          {showTerminal && (
+            <div className="w-[40%] border-l border-gray-200 flex flex-col min-h-0">
+              <TerminalPanel
+                onPenCreated={handlePenCreated}
+                className="flex-1 min-h-0"
+              />
+            </div>
+          )}
+        </div>
+
+        {isExportOpen && cardNews && (
+          <ExportModal
+            cardNews={cardNews}
+            aspectRatio={aspectRatio}
+            onClose={() => setIsExportOpen(false)}
+          />
+        )}
+      </div>
+    );
+  }
+
+  // 웹 브라우저: 기존 레이아웃 유지
   if (!cardNews) {
     return (
       <div className="h-screen flex flex-col overflow-hidden">
@@ -119,7 +202,6 @@ export default function Home() {
     );
   }
 
-  // 편집기 화면: cardNews 있을 때
   return (
     <div className="h-screen flex flex-col overflow-hidden">
       <Header

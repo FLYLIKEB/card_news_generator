@@ -17,9 +17,13 @@ export default function InputPanel({ onLoadPen }: InputPanelProps) {
 
   useEffect(() => {
     if (!fileOpen) return;
-    fetch("/api/pen-files")
-      .then((r) => r.json())
-      .then((d) => setFiles(d.files ?? []));
+    if (typeof window !== "undefined" && window.electronAPI) {
+      window.electronAPI.listPenFiles().then(setFiles);
+    } else {
+      fetch("/api/pen-files")
+        .then((r) => r.json())
+        .then((d) => setFiles(d.files ?? []));
+    }
   }, [fileOpen]);
 
   useEffect(() => {

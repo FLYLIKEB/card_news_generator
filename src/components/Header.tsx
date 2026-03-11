@@ -11,18 +11,26 @@ interface HeaderProps {
   hasCards: boolean;
   onLoadPen: (filename: string) => void;
   onNew: () => void;
+  onToggleTerminal?: () => void;
+  showTerminal?: boolean;
 }
 
-export default function Header({ onExport, hasCards, onLoadPen, onNew }: HeaderProps) {
+const isElectron = typeof window !== "undefined" && !!window.electronAPI;
+
+export default function Header({ onExport, hasCards, onLoadPen, onNew, onToggleTerminal, showTerminal }: HeaderProps) {
   const [open, setOpen] = useState(false);
   const [files, setFiles] = useState<PenFileEntry[]>([]);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!open) return;
-    fetch("/api/pen-files")
-      .then((r) => r.json())
-      .then((d) => setFiles(d.files ?? []));
+    if (isElectron && window.electronAPI) {
+      window.electronAPI.listPenFiles().then((list) => setFiles(list));
+    } else {
+      fetch("/api/pen-files")
+        .then((r) => r.json())
+        .then((d) => setFiles(d.files ?? []));
+    }
   }, [open]);
 
   useEffect(() => {
@@ -72,6 +80,19 @@ export default function Header({ onExport, hasCards, onLoadPen, onNew }: HeaderP
             </div>
           )}
         </div>
+        {/* 터미널 토글 (Electron 전용) */}
+        {isElectron && onToggleTerminal && (
+          <button
+            onClick={onToggleTerminal}
+            className={`px-4 py-2 text-sm font-medium border rounded-lg transition-colors ${
+              showTerminal
+                ? "bg-gray-900 text-white border-gray-900"
+                : "border-gray-200 hover:border-gray-400"
+            }`}
+          >
+            터미널
+          </button>
+        )}
         <button
           onClick={onExport}
           disabled={!hasCards}
