@@ -23,8 +23,6 @@ export default function TerminalPanel({ onPenCreated, className = "" }: Terminal
     const { Terminal } = await import("@xterm/xterm");
     const { FitAddon } = await import("@xterm/addon-fit");
 
-    await import("@xterm/xterm/css/xterm.css");
-
     const term = new Terminal({
       fontFamily: "'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace",
       fontSize: 13,
